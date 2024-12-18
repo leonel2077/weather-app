@@ -1,1 +1,3 @@
-# Web App for Weather Forecast and Weather of the current location | Made by Leonel Ison
+# Web App for Weather Forecast and Weather information of searched Location (city)  
+
+## Made by Leonel Ison
