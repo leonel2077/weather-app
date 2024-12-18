@@ -1,31 +1,27 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
-const ForecastInfo = () => {
+// eslint-disable-next-line react/prop-types
+const ForecastInfo = ({ cityName, onError }) => {
     const [forecastData, setForecastData] = useState(null);
-    const [error, setError] = useState(null);
 
     const fetchForecastData = async () => {
         try {
-            setError(null);
             const apiKey = import.meta.env.VITE_API_KEY;
             const response = await axios.get(
-                `https://api.openweathermap.org/data/2.5/forecast?q=London,uk&APPID=${apiKey}`
+                `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&APPID=${apiKey}`
             );
             setForecastData(response.data);
         } catch (err) {
             console.error(err);
-            setError('Failed to fetch forecast data');
+            onError('Failed to fetch forecast data');
         }
     };
     
     useEffect(() => {
         fetchForecastData(); 
-    }, []);
+    }, [cityName]);
     
-    if (error) {
-        return <div>{error}</div>;
-    }
 
     if (!forecastData) {
         return <p>Loading...</p>;

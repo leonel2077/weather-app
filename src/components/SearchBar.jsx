@@ -2,8 +2,8 @@ import { useState} from 'react';
 import search_icon from '/assets/icons/search.svg';
 
 // eslint-disable-next-line react/prop-types
-const SearchBar = ({onSearch}) => {
-    const [searchTerm, setSearchTerm] = useState(null)
+const SearchBar = ({ onSearch }) => {
+    const [searchTerm, setSearchTerm] = useState('')
 
     const handleInput =  (e) => {
         setSearchTerm(e.target.value)

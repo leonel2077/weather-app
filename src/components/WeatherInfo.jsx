@@ -5,32 +5,26 @@ import location_icon from '/assets/icons/location.svg';
 import water_drop from '/assets/icons/water_drop.svg';
 import air_icon from '/assets/icons/air_icon.svg';
 
-
-const WeatherInfo = () => {
+// eslint-disable-next-line react/prop-types
+const WeatherInfo = ({ cityName, onError }) => {
     const [weatherData, setWeatherData] = useState(null);
-    const [error, setError] = useState(null);
 
     const fetchWeatherData = async () => {
         try {
-            setError(null);
             const apiKey = import.meta.env.VITE_API_KEY;
             const response = await axios.get(
-                `https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=${apiKey}`
+                `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${apiKey}`
             );
             setWeatherData(response.data);
         } catch (err) {
             console.error(err);
-            setError('Failed to fetch weather data');
+            onError('Failed to fetch weather data');
         }
     };
     
     useEffect(() => {
         fetchWeatherData(); 
-    }, []);
-    
-    if (error) {
-        return <div>{error}</div>;
-    }
+    }, [cityName]);
 
     if (!weatherData) {
         return <p>Loading...</p>;
